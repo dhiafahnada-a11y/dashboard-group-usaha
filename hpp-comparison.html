@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Analisis HPP & Margin — Restoran</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F0F4F8;color:#1A2A3A;min-height:100vh;padding:16px 14px 32px}
+.card{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+/* HEADER */
+.hdr{background:#1F4E79;padding:18px 20px}
+.hdr h1{font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+.hdr p{font-size:11px;color:rgba(255,255,255,.65)}
+.hdr-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.hdr-pill{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)}
+
+/* HERO MARGIN */
+.hero{padding:18px 16px 14px}
+.section-title{font-size:10px;font-weight:700;color:#6A7A8A;text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hero-item{border-radius:10px;overflow:hidden}
+.hi-top{padding:10px 10px 8px;text-align:center}
+.hi-name{font-size:11px;font-weight:700;margin-bottom:1px}
+.hi-harga{font-size:10px;opacity:.75}
+.hi-divider{height:1px;background:rgba(255,255,255,.2)}
+.hi-margin{padding:10px 8px;text-align:center}
+.hi-margin-lbl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;opacity:.75;margin-bottom:4px}
+.hi-margin-val{font-size:28px;font-weight:800;line-height:1}
+.hi-margin-rp{font-size:10px;opacity:.75;margin-top:3px}
+.hi-gap{padding:6px 10px 10px;text-align:center}
+.hi-gap-lbl{font-size:9px;margin-bottom:2px}
+.hi-gap-val{font-size:12px;font-weight:700}
+
+.m-high{background:#2D6A1F;color:#fff}
+.m-mid{background:#7F6000;color:#fff}
+.m-low{background:#922B21;color:#fff}
+.g-high{background:#D5F0C1}
+.g-mid{background:#FFF2CC}
+.g-low{background:#F9C0B6}
+
+/* SUBSIDI BAR */
+.subsidi{padding:0 16px 18px}
+.subsidi-rows{display:flex;flex-direction:column;gap:10px}
+.s-row{display:flex;align-items:center;gap:10px}
+.s-name{font-size:12px;font-weight:600;color:#2a3a4a;width:108px;flex-shrink:0}
+.s-track{flex:1;height:32px;background:#F0F4F8;border-radius:7px;overflow:hidden;position:relative}
+.s-fill{height:100%;border-radius:7px;display:flex;align-items:center;padding:0 12px;justify-content:space-between}
+.s-fill-label{font-size:11px;font-weight:700;color:#fff}
+.s-fill-pct{font-size:13px;font-weight:800;color:#fff}
+.s-rp{font-size:11px;font-weight:700;width:36px;text-align:right;flex-shrink:0}
+
+/* DETAIL TABLE */
+.dtable{width:100%;border-collapse:collapse}
+.dtable th{font-size:10px;font-weight:700;color:#6A7A8A;text-transform:uppercase;letter-spacing:.4px;padding:9px 16px;border-bottom:1px solid #F0F4F8;text-align:left;background:#FAFCFF}
+.dtable td{padding:11px 16px;border-bottom:1px solid #F5F8FC;font-size:13px;vertical-align:middle}
+.dtable tr:last-child td{border-bottom:none}
+.dtable td:first-child{font-weight:600;color:#2a3a4a}
+.tag-high{color:#922B21;font-weight:700;background:#F9C0B6;padding:3px 9px;border-radius:4px;font-size:12px}
+.tag-mid{color:#7F6000;font-weight:700;background:#FFF2CC;padding:3px 9px;border-radius:4px;font-size:12px}
+.tag-ok{color:#2D6A1F;font-weight:700;background:#D5F0C1;padding:3px 9px;border-radius:4px;font-size:12px}
+
+/* KONTEKS */
+.konteks{margin:0 16px 16px;background:#F7FAFC;border-radius:10px;padding:12px 14px;border-left:3px solid #2E75B6}
+.konteks-title{font-size:10px;font-weight:700;color:#2E75B6;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.konteks-item{display:flex;gap:8px;margin-bottom:6px;align-items:flex-start}
+.konteks-item:last-child{margin-bottom:0}
+.k-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.k-text{font-size:12px;color:#3a4a5a;line-height:1.6}
+
+.footer{text-align:center;font-size:11px;color:#9AAABB;padding:4px 0 8px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="card">
+  <div class="hdr">
+    <h1>Analisis HPP & Struktur Margin</h1>
+    <p>Restoran — Evaluasi 3 Menu Utama</p>
+    <div class="hdr-meta">
+      <span class="hdr-pill">Tim FAT</span>
+      <span class="hdr-pill">April 2025</span>
+      <span class="hdr-pill">Data aktual vs estimasi Majoo</span>
+    </div>
+  </div>
+
+  <!-- HERO: MARGIN AKTUAL -->
+  <div class="hero">
+    <div class="section-title">Margin aktual per menu</div>
+    <div class="hero-grid">
+
+      <div class="hero-item">
+        <div class="hi-top m-high">
+          <div class="hi-name">Ikan Nila</div>
+          <div class="hi-harga">Jual Rp 20.000</div>
+        </div>
+        <div class="hi-divider"></div>
+        <div class="hi-margin m-high">
+          <div class="hi-margin-lbl">Margin aktual</div>
+          <div class="hi-margin-val">60%</div>
+          <div class="hi-margin-rp">Rp 12.034 / porsi</div>
+        </div>
+        <div class="hi-gap g-high">
+          <div class="hi-gap-lbl" style="color:#2D6A1F;font-size:9px">vs estimasi (63%)</div>
+          <div class="hi-gap-val" style="color:#2D6A1F">-3 poin</div>
+        </div>
+      </div>
+
+      <div class="hero-item">
+        <div class="hi-top m-mid">
+          <div class="hi-name">Ayam Pejantan</div>
+          <div class="hi-harga">Jual Rp 25.000</div>
+        </div>
+        <div class="hi-divider"></div>
+        <div class="hi-margin m-mid">
+          <div class="hi-margin-lbl">Margin aktual</div>
+          <div class="hi-margin-val">48%</div>
+          <div class="hi-margin-rp">Rp 12.067 / porsi</div>
+        </div>
+        <div class="hi-gap g-mid">
+          <div class="hi-gap-lbl" style="color:#7F6000;font-size:9px">vs estimasi (50%)</div>
+          <div class="hi-gap-val" style="color:#7F6000">-2 poin</div>
+        </div>
+      </div>
+
+      <div class="hero-item">
+        <div class="hi-top m-low">
+          <div class="hi-name">Ayam Kampung</div>
+          <div class="hi-harga">Jual Rp 25.000</div>
+        </div>
+        <div class="hi-divider"></div>
+        <div class="hi-margin m-low">
+          <div class="hi-margin-lbl">Margin aktual</div>
+          <div class="hi-margin-val">31%</div>
+          <div class="hi-margin-rp">Rp 7.757 / porsi</div>
+        </div>
+        <div class="hi-gap g-low">
+          <div class="hi-gap-lbl" style="color:#922B21;font-size:9px">vs estimasi (55%)</div>
+          <div class="hi-gap-val" style="color:#922B21">-24 poin</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUBSIDI SILANG BAR -->
+  <div class="subsidi">
+    <div class="section-title">Margin per porsi (Rp) — kontribusi relatif</div>
+    <div class="subsidi-rows">
+      <div class="s-row">
+        <span class="s-name">Ikan Nila</span>
+        <div class="s-track">
+          <div class="s-fill" style="width:100%;background:#2D6A1F">
+            <span class="s-fill-label">Rp 12.034</span>
+            <span class="s-fill-pct">60%</span>
+          </div>
+        </div>
+      </div>
+      <div class="s-row">
+        <span class="s-name">Ayam Pejantan</span>
+        <div class="s-track">
+          <div class="s-fill" style="width:100%;background:#7F6000">
+            <span class="s-fill-label">Rp 12.067</span>
+            <span class="s-fill-pct">48%</span>
+          </div>
+        </div>
+      </div>
+      <div class="s-row">
+        <span class="s-name">Ayam Kampung</span>
+        <div class="s-track">
+          <div class="s-fill" style="width:64%;background:#922B21">
+            <span class="s-fill-label">Rp 7.757</span>
+            <span class="s-fill-pct">31%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- HPP DETAIL TABLE -->
+<div class="card">
+  <table class="dtable">
+    <thead>
+      <tr>
+        <th>Menu</th>
+        <th>Estimasi HPP</th>
+        <th>HPP Aktual</th>
+        <th>Selisih</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ikan Nila</td>
+        <td style="color:#6A7A8A">Rp 7.500</td>
+        <td style="font-weight:700">Rp 7.966</td>
+        <td><span class="tag-ok">+Rp 466 (+6,2%)</span></td>
+      </tr>
+      <tr>
+        <td>Ayam Pejantan</td>
+        <td style="color:#6A7A8A">Rp 12.500</td>
+        <td style="font-weight:700">Rp 12.933</td>
+        <td><span class="tag-mid">+Rp 433 (+3,5%)</span></td>
+      </tr>
+      <tr>
+        <td>Ayam Kampung</td>
+        <td style="color:#6A7A8A">Rp 11.250</td>
+        <td style="font-weight:700">Rp 17.243</td>
+        <td><span class="tag-high">+Rp 5.993 (+53,3%)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="konteks">
+    <div class="konteks-title">Konteks</div>
+    <div class="konteks-item">
+      <div class="k-dot" style="background:#2D6A1F"></div>
+      <div class="k-text">Pola ini menunjukkan struktur subsidi silang — ikan nila dan ayam pejantan menanggung margin lebih besar, sementara ayam kampung lebih kecil dari yang diestimasi.</div>
+    </div>
+    <div class="konteks-item">
+      <div class="k-dot" style="background:#D4A017"></div>
+      <div class="k-text">Gap terbesar ada di ayam kampung (+53,3% dari estimasi) — perlu dikonfirmasi apakah ini strategi yang disengaja atau perlu dievaluasi lebih lanjut.</div>
+    </div>
+    <div class="konteks-item">
+      <div class="k-dot" style="background:#2E75B6"></div>
+      <div class="k-text">Ini baru mencakup 3 menu. Gambaran profitabilitas restoran secara utuh akan tersedia setelah seluruh menu dihitung.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Disiapkan oleh Tim FAT · Data per April 2025</div>
+
+</body>
+</html>
